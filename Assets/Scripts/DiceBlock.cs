@@ -16,10 +16,13 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
     public SpriteRenderer diceFaceColor;
 
     public bool onTierTwo;//if the dice block is on the second tier of dice/just generated
+    bool moveBlock;
+    bool moveDown;
 
     private void Start()
     {
         generateRandom();
+        moveBlock = false;
     }
 
     private void Update()
@@ -27,7 +30,14 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
         diceFace.sprite = diceNumbers[generatedNumber - 1];
         diceFaceColor.color = colors[generatedColor - 1];
 
-        
+        if(moveBlock)
+        {
+            transform.position = Vector2.Lerp(transform.position, new Vector2(0, -3), Time.deltaTime);
+        }
+        if(moveDown)
+        {
+            transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x, 0.6f), Time.deltaTime);
+        }
     }
 
     public void generateRandom()
@@ -39,5 +49,15 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Dice clicked:" + generatedNumber);
+    }
+
+    public void SelectBlock()
+    {
+        moveBlock = true;
+        moveDown = false;
+    }
+    public void MoveDown()
+    {
+        moveDown = true;
     }
 }
