@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DiceBlock : MonoBehaviour, IPointerClickHandler
+public class DiceBlock : MonoBehaviour
 {
+    GameManager gameManager;
     [Header("Dice numbers")]
     public List<Sprite> diceNumbers = new List<Sprite>();//List of sprite faces which the generated number will be pulled from
     public SpriteRenderer diceFace;
@@ -15,14 +16,16 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
     public int generatedColor;//generate randomly a number from 1-4
     public SpriteRenderer diceFaceColor;
 
-    public bool onTierTwo;//if the dice block is on the second tier of dice/just generated
-    bool moveBlock;
-    bool moveDown;
+    //Move Dice Variables
+    private Vector2 velocity = Vector2.zero;
+    float smoothTime = 0.3f;
+    bool moveDice = false;
+    Vector2 desiredPosition;
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         generateRandom();
-        moveBlock = false;
     }
 
     private void Update()
@@ -30,14 +33,15 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
         diceFace.sprite = diceNumbers[generatedNumber - 1];
         diceFaceColor.color = colors[generatedColor - 1];
 
-        if(moveBlock)
+        if(moveDice)
         {
-            transform.position = Vector2.Lerp(transform.position, new Vector2(0, -3), Time.deltaTime);
+            DiceMoving();
         }
-        if(moveDown)
-        {
-            transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x, 0.6f), Time.deltaTime);
-        }
+    }
+
+    private void OnMouseDown()
+    {
+        gameManager.SendMessage("CheckDice", this);
     }
 
     public void generateRandom()
@@ -46,18 +50,20 @@ public class DiceBlock : MonoBehaviour, IPointerClickHandler
         generatedColor = Random.Range(1, 5);
     }
 
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    public void MoveDice( Vector2 _desiredPosition)
     {
-        Debug.Log("Dice clicked:" + generatedNumber);
+        desiredPosition = _desiredPosition;
+        moveDice = true;
+        
     }
 
-    public void SelectBlock()
+    void DiceMoving()
     {
-        moveBlock = true;
-        moveDown = false;
-    }
-    public void MoveDown()
-    {
-        moveDown = true;
+        Vector2 targetToMoveOriginalPos = transform.position;
+        transform.position = Vector2.SmoothDamp(targetToMoveOriginalPos, desiredPosition, ref velocity, smoothTime);
+        if((Vector2)transform.position == desiredPosition)
+        {
+            moveDice = false;
+        }
     }
 }

@@ -62,7 +62,6 @@ MonoBehaviour:
   - {r: 0.8574619, g: 0, b: 1, a: 1}
   generatedColor: 0
   diceFaceColor: {fileID: 4693575160637028360}
-  onTierTwo: 0
 --- !u!61 &350809800444083671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -114,8 +113,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4693575160637028367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.6541154, y: 2.6541154, z: 2.6541154}
+  m_LocalPosition: {x: 0.022, y: 0, z: 0}
+  m_LocalScale: {x: 1.035105, y: 1.035105, z: 1.035105}
   m_Children: []
   m_Father: {fileID: 4693575160466379944}
   m_RootOrder: 0
@@ -160,7 +159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfe16f4173e49a4459285b4f3af74322, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
