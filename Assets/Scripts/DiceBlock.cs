@@ -22,6 +22,12 @@ public class DiceBlock : MonoBehaviour
     bool moveDice = false;
     Vector2 desiredPosition;
 
+    //dice press
+    public bool isOnTop = false;
+
+    //remove selected dice
+    public bool isSelected = false;
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -37,10 +43,26 @@ public class DiceBlock : MonoBehaviour
         {
             DiceMoving();
         }
+
+        if (transform.position.y <= -6.5f)
+        {
+            if(gameManager.selectedDice == this)
+            {
+                gameManager.selectedDice = null;
+            }
+            Destroy(gameObject);
+        }
+
     }
 
     private void OnMouseDown()
     {
+        if (isOnTop) return;
+        if (isSelected)
+        {
+            MoveDice(new Vector2(this.transform.position.x, -10f));
+            return;
+        }
         gameManager.SendMessage("CheckDice", this);
     }
 

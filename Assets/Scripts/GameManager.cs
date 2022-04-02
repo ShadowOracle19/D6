@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject dicePrefab;
-    public GameObject selectedDice = null;
+    public DiceBlock selectedDice = null;
     public List<DiceBlock> diceBlocks = new List<DiceBlock>();
 
     //generating
@@ -59,6 +59,12 @@ public class GameManager : MonoBehaviour
             dice.GetComponent<DiceBlock>().MoveDice(positionToMoveTo);//activate the move function to move the dice block down once it is created
             diceBlocks.Add(dice.GetComponent<DiceBlock>());//add the dice block to a list to keep track of it 
             positionToMoveTo.x += num;
+
+            if(i >= 5)
+            {
+                dice.GetComponent<DiceBlock>().isOnTop = true;
+            }
+
             yield return new WaitForSeconds(.1f);
 
         }
@@ -68,17 +74,70 @@ public class GameManager : MonoBehaviour
     public void CheckDice(DiceBlock dice)
     {
         Debug.Log(dice.generatedNumber);
-        if (selectedDice == null)
+        if (selectedDice == null)//if there is no block selected this will play
         {
-            DiceListIndexCheck(dice);
-            dice.MoveDice(new Vector2(0,-3));
-            selectedDice = dice.gameObject;
+            DiceListIndexCheck(dice);//checks the location of the dice above the one selected
+            dice.MoveDice(new Vector2(0,-3));//moves the selected dice
+            
+            selectedDice = dice;//adds dice to the selected block
 
-            Vector2 originalLocation = diceBlocks[location].transform.position;
-            diceBlocks[location].MoveDice(new Vector2(diceBlocks[location].transform.position.x, 0.7f));//moves dice block from second row to first
+            DiceBlock topBlock = diceBlocks[location];
+
+            Vector2 originalLocation = topBlock.transform.position;//gets the location of the dice above it 
+
+            var newBlock = Instantiate(dicePrefab, new Vector2(originalLocation.x, 10f), Quaternion.identity);//creates the new dice above the one about to move down
+            newBlock.GetComponent<DiceBlock>().isOnTop = true;//sets the new block to is on top 
+
+            topBlock.isOnTop = false;//sets the dice on the second row to no longer on top as its gonna move
+            topBlock.MoveDice(new Vector2(originalLocation.x, 0.7f));//moves dice block from second row to first
+
+            diceBlocks.Remove(topBlock);//removes the top dice block so duplicates arent put in the list
+            diceBlocks.Insert(diceBlocks.IndexOf(dice), topBlock);//inserts the dice above the dice selected in that slot of the list
             
-            
+
+            diceBlocks.RemoveAt(diceBlocks.IndexOf(dice));//removes the selected dice from the list
+
+            diceBlocks.Insert(location, newBlock.gameObject.GetComponent<DiceBlock>());//inserts the new dice within the list at the empty location
+            diceBlocks[location].MoveDice(new Vector2(originalLocation.x, 3.5f));//moves the dice to the empty slot
+
+            selectedDice.isSelected = true;
+            return;
         }
+        if((selectedDice != null) && //to make sure there is a selected dice
+            ((selectedDice.generatedColor == dice.generatedColor)||//if the colors are the same
+            (selectedDice.generatedNumber+1 == dice.generatedNumber)||//if the number is one higher
+            (selectedDice.generatedNumber == 6 && dice.generatedNumber == 1)))//just the check to go from 6 to 1
+        {
+            
+            DiceListIndexCheck(dice);//checks the location of the dice above the one selected
+            dice.MoveDice(new Vector2(0, -3));//moves the selected dice
+
+            selectedDice.MoveDice(new Vector2(0, -10f));//moves the already selected block down to be deleted
+            selectedDice = dice;//adds dice to the selected block
+
+            DiceBlock topBlock = diceBlocks[location];
+
+            Vector2 originalLocation = topBlock.transform.position;//gets the location of the dice above it 
+
+            var newBlock = Instantiate(dicePrefab, new Vector2(originalLocation.x, 10f), Quaternion.identity);//creates the new dice above the one about to move down
+            newBlock.GetComponent<DiceBlock>().isOnTop = true;//sets the new block to is on top 
+
+            topBlock.isOnTop = false;//sets the dice on the second row to no longer on top as its gonna move
+            topBlock.MoveDice(new Vector2(originalLocation.x, 0.7f));//moves dice block from second row to first
+
+            diceBlocks.Remove(topBlock);//removes the top dice block so duplicates arent put in the list
+            diceBlocks.Insert(diceBlocks.IndexOf(dice), topBlock);//inserts the dice above the dice selected in that slot of the list
+
+
+            diceBlocks.RemoveAt(diceBlocks.IndexOf(dice));//removes the selected dice from the list
+
+            diceBlocks.Insert(location, newBlock.gameObject.GetComponent<DiceBlock>());//inserts the new dice within the list at the empty location
+            diceBlocks[location].MoveDice(new Vector2(originalLocation.x, 3.5f));//moves the dice to the empty slot
+
+            selectedDice.isSelected = true;
+            return;
+        }
+
     }
 
     //
