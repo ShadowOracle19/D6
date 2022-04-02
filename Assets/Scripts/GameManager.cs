@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject dicePrefab;
     public DiceBlock selectedDice = null;
     public List<DiceBlock> diceBlocks = new List<DiceBlock>();
+    Animator anim;
 
     //generating
     Vector2 generatingPosition;
@@ -16,28 +19,36 @@ public class GameManager : MonoBehaviour
     //dice checking
     int location;//holds what location the corresponding dice is used within DiceListIndexCheck
 
+    //Gameplay
+    int score;
+    public int chain;
+    public int diceSwapLeft;
+    public TextMeshProUGUI t_score;
+    public TextMeshProUGUI t_chain;
+    public List<Image> swapLeftImages = new List<Image>();
+    public Sprite emptyCircle, filledCircle;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(c_GenerateBoard());
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        t_score.text = score.ToString() + "/ 50";
+        t_chain.text = chain.ToString() + " Chain";
+
 
         
     }
-
-    public void ClearSelectedBlock()
+    public void PlayGame()
     {
-       
-    }
-
-    void CompareBlocks(DiceBlock compareBlock)
-    {
-        
-
+        diceSwapLeft = 6;
+        score = 0;
+        chain = 0;
+        StartCoroutine(c_GenerateBoard());
     }
 
     IEnumerator c_GenerateBoard()
@@ -101,6 +112,8 @@ public class GameManager : MonoBehaviour
             diceBlocks[location].MoveDice(new Vector2(originalLocation.x, 3.5f));//moves the dice to the empty slot
 
             selectedDice.isSelected = true;
+
+            AddPoints();
             return;
         }
         if((selectedDice != null) && //to make sure there is a selected dice
@@ -135,7 +148,13 @@ public class GameManager : MonoBehaviour
             diceBlocks[location].MoveDice(new Vector2(originalLocation.x, 3.5f));//moves the dice to the empty slot
 
             selectedDice.isSelected = true;
+
+            AddPoints();
             return;
+        }
+        else
+        {
+            dice.SendMessage("Incorrect");
         }
 
     }
@@ -170,4 +189,35 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    void AddPoints()
+    {
+
+        chain += 1;
+        score += 1;
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(c_GameOver());
+    }
+
+    IEnumerator c_GameOver()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            diceBlocks[i].MoveDice(new Vector2(-14, 0.7f));
+        }
+        for (int i = 5; i < 10; i++)
+        {
+            diceBlocks[i].MoveDice(new Vector2(14, 3.5f));
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        anim.SetBool("PlayGame", false);
+
+        yield return null;
+    }
+
 }

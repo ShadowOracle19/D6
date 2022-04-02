@@ -56,12 +56,15 @@ MonoBehaviour:
   diceFace: {fileID: 4693575161321251562}
   generatedNumber: 0
   colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0.8574619, g: 0, b: 1, a: 1}
+  - {r: 0.35686275, g: 0.8078432, b: 0.9803922, a: 1}
+  - {r: 0.9607844, g: 0.6627451, b: 0.72156864, a: 1}
+  - {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
+  - {r: 0.6, g: 0.39600003, b: 0.6, a: 1}
+  - {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
   generatedColor: 0
   diceFaceColor: {fileID: 4693575160637028360}
+  isOnTop: 0
+  isSelected: 0
 --- !u!61 &350809800444083671
 BoxCollider2D:
   m_ObjectHideFlags: 0

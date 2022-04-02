@@ -28,6 +28,9 @@ public class DiceBlock : MonoBehaviour
     //remove selected dice
     public bool isSelected = false;
 
+    //Dice shake
+    Vector2 startingPos;
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -49,6 +52,16 @@ public class DiceBlock : MonoBehaviour
             if(gameManager.selectedDice == this)
             {
                 gameManager.selectedDice = null;
+                gameManager.chain = 0;
+                gameManager.diceSwapLeft -= 1;
+
+                if(gameManager.diceSwapLeft <= -1)
+                {
+                    gameManager.GameOver();
+                    return;
+                }
+
+                gameManager.swapLeftImages[gameManager.diceSwapLeft].sprite = gameManager.emptyCircle;
             }
             Destroy(gameObject);
         }
@@ -69,7 +82,7 @@ public class DiceBlock : MonoBehaviour
     public void generateRandom()
     {
         generatedNumber = Random.Range(1, 7);
-        generatedColor = Random.Range(1, 5);
+        generatedColor = Random.Range(1, 6);
     }
 
     public void MoveDice( Vector2 _desiredPosition)
@@ -87,5 +100,15 @@ public class DiceBlock : MonoBehaviour
         {
             moveDice = false;
         }
+    }
+
+    public void Incorrect()
+    {
+        
+    }
+    public void turnOffAnim()
+    {
+        
+
     }
 }
