@@ -53,6 +53,7 @@ public class DiceBlock : MonoBehaviour
             {
                 gameManager.selectedDice = null;
                 gameManager.chain = 0;
+                gameManager.pitch = 1;
                 gameManager.diceSwapLeft -= 1;
 
                 if(gameManager.diceSwapLeft <= -1)

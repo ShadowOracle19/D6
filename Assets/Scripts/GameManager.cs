@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI t_chain;
     public List<Image> swapLeftImages = new List<Image>();
     public Sprite emptyCircle, filledCircle;
+    public AudioSource blip;
+    public float pitch = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -192,9 +194,12 @@ public class GameManager : MonoBehaviour
 
     void AddPoints()
     {
-
+        blip.Play();
         chain += 1;
         score += 1;
+        pitch += 0.2f;
+        if (pitch >= 2.1f) return;
+        blip.pitch = pitch;
     }
 
     public void GameOver()
