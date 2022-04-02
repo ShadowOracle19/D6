@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
     }
     public void PlayGame()
     {
+        for (int i = 0; i < swapLeftImages.Count; i++)
+        {
+            swapLeftImages[i].sprite = filledCircle;
+        }
         diceSwapLeft = 6;
         score = 0;
         chain = 0;
@@ -161,6 +165,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     //
     // dice 0 is below dice 9
     // dice 1 is below dice 8
@@ -212,10 +217,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             diceBlocks[i].MoveDice(new Vector2(-14, 0.7f));
+            diceBlocks[i].isOnTop = true;
         }
         for (int i = 5; i < 10; i++)
         {
             diceBlocks[i].MoveDice(new Vector2(14, 3.5f));
+            diceBlocks[i].isOnTop = true;
         }
 
         yield return new WaitForSeconds(0.1f);

@@ -66,6 +66,18 @@ public class DiceBlock : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        if(transform.position.x <= -12f)
+        {
+            gameManager.selectedDice = null;
+            gameManager.diceBlocks.Remove(this);
+            Destroy(gameObject);
+        }
+        if (transform.position.x >= 12f)
+        {
+            gameManager.selectedDice = null;
+            gameManager.diceBlocks.Remove(this);
+            Destroy(gameObject);
+        }
 
     }
 
