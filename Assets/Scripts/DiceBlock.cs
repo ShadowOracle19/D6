@@ -12,7 +12,10 @@ public class DiceBlock : MonoBehaviour
     public int generatedNumber;//generate a number from 1-6
 
     [Header("Dice Color")]
-    public List<Color> colors = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
+    public List<Color> colors1 = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
+    public List<Color> colors2 = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
+    public List<Color> colors3 = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
+    public List<Color> colors4 = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
     public int generatedColor;//generate randomly a number from 1-4
     public SpriteRenderer diceFaceColor;
 
@@ -28,8 +31,8 @@ public class DiceBlock : MonoBehaviour
     //remove selected dice
     public bool isSelected = false;
 
-    //Dice shake
-    Vector2 startingPos;
+    //change color
+    public int colorToChange;
 
     private void Start()
     {
@@ -40,9 +43,27 @@ public class DiceBlock : MonoBehaviour
     private void Update()
     {
         diceFace.sprite = diceNumbers[generatedNumber - 1];
-        diceFaceColor.color = colors[generatedColor - 1];
 
-        if(moveDice)
+        switch (colorToChange)
+        {
+            case 1:
+                diceFaceColor.color = colors1[generatedColor - 1];
+                break;
+            case 2:
+                diceFaceColor.color = colors2[generatedColor - 1];
+                break;
+            case 3:
+                diceFaceColor.color = colors3[generatedColor - 1];
+                break;
+            case 4:
+                diceFaceColor.color = colors4[generatedColor - 1];
+                break;
+            default:
+                break;
+        }
+
+
+        if (moveDice)
         {
             DiceMoving();
         }
@@ -96,6 +117,8 @@ public class DiceBlock : MonoBehaviour
     {
         generatedNumber = Random.Range(1, 7);
         generatedColor = Random.Range(1, 6);
+
+        
     }
 
     public void MoveDice( Vector2 _desiredPosition)
@@ -115,13 +138,4 @@ public class DiceBlock : MonoBehaviour
         }
     }
 
-    public void Incorrect()
-    {
-        
-    }
-    public void turnOffAnim()
-    {
-        
-
-    }
 }
