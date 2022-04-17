@@ -1,3 +1,19 @@
+//////////////////////////////////////////////////////////////////////
+//FileName: UI_Buttons.cs
+//FileType: Visual C# Source File
+//Author: Lucy Coates
+//Created On: 4/01/2022 8:48:37PM
+//Last Modified On: 4/17/2022 7:31:52PM
+//Description: This script handles all functionality with the ui buttons.
+// it handles when the play button is clicked it will play the animation
+// which will then play the game. it handles the changing colors 
+// when the button is clicked it will change all the text to the color
+// and tell the game manager that the colors have changed and to use the right
+// colors. it handles all other screen transitions like from the menu to
+// the stats screen and the how to play. when the dots or numbers button
+// is clicked it will tell the game manager which one is gonna be used
+//////////////////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

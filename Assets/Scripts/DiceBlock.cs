@@ -1,3 +1,16 @@
+//////////////////////////////////////////////////////////////////////
+//FileName: DiceBlock.cs
+//FileType: Visual C# Source File
+//Author: Lucy Coates
+//Created On: 4/01/2022 2:18:18PM
+//Last Modified On: 4/17/2022 7:26:11PM
+//Description: This file handles the randomizing of the dice's 
+// number and color as well as holds the list of possible colors the
+// dice can use. it handles the movement of the dice and what happens
+// when they reach certain points as well as allowing the player to click
+// them. 
+//////////////////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +19,7 @@ using TMPro;
 
 public class DiceBlock : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager gameManager;//just to get a reference to the game manager when needed in code 
     [Header("Dice numbers")]
     public List<Sprite> diceNumbers = new List<Sprite>();//List of sprite faces which the generated number will be pulled from
     public SpriteRenderer diceFace;

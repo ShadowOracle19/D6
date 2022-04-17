@@ -1,3 +1,14 @@
+//////////////////////////////////////////////////////////////////////
+//FileName: GameManager.cs
+//FileType: Visual C# Source File
+//Author: Lucy Coates
+//Created On: 4/01/2022 2:18:18PM
+//Last Modified On: 4/17/2022 7:24:44PM
+//Description: This file handles all the points, generating dice board
+// handles the win and lose conditions and handles comapring the dice
+// whenever one is clicked
+//////////////////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
