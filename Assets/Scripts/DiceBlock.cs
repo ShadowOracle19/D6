@@ -98,7 +98,7 @@ public class DiceBlock : MonoBehaviour
                 if(gameManager.diceSwapLeft <= -1)
                 {
                     gameManager.GamesLost += 1;
-                    gameManager.winStreak = 0;
+                    if(gameManager.winStreak > 0)gameManager.winStreak = 0;
                     gameManager.winStreak -= 1;
                     gameManager.GameOver();
                     return;

@@ -6354,6 +6354,18 @@ MonoBehaviour:
   text2: {fileID: 1254919999}
   text3: {fileID: 2081912992}
   text4: {fileID: 2229111}
+  TimesPlayedNum: {fileID: 951627611}
+  GamesWonNum: {fileID: 296283927}
+  GamesLostNum: {fileID: 1445513352}
+  winStreakNum: {fileID: 1804677875}
+  bestChainNum: {fileID: 778925225}
+  highScoreNum: {fileID: 594054211}
+  TimesPlayed: {fileID: 2087887723}
+  GamesWon: {fileID: 1145143487}
+  GamesLost: {fileID: 634057476}
+  winStreak: {fileID: 635889761}
+  bestChain: {fileID: 1197307490}
+  highScore: {fileID: 870228370}
   bar: {fileID: 1832281752}
   menuBar: {fileID: 1884403714}
   Panel: {fileID: 1993596181}

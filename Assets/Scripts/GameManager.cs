@@ -272,6 +272,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         anim.SetBool("PlayGame", false);
+        anim.SetBool("Stats", true);
         playingEndless = false;
         yield return null;
     }

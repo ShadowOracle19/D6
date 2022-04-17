@@ -31,6 +31,20 @@ public class UI_Buttons : MonoBehaviour
     public TextMeshProUGUI text3;
     public TextMeshProUGUI text4;
 
+    //Stats
+    public TextMeshProUGUI TimesPlayedNum;
+    public TextMeshProUGUI GamesWonNum;
+    public TextMeshProUGUI GamesLostNum;
+    public TextMeshProUGUI winStreakNum;
+    public TextMeshProUGUI bestChainNum;
+    public TextMeshProUGUI highScoreNum;
+    public TextMeshProUGUI TimesPlayed;
+    public TextMeshProUGUI GamesWon;
+    public TextMeshProUGUI GamesLost;
+    public TextMeshProUGUI winStreak;
+    public TextMeshProUGUI bestChain;
+    public TextMeshProUGUI highScore;
+
     public Image bar;
     public Image menuBar;
     public Image Panel;
@@ -78,11 +92,28 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors1[4];
                     menuBar.color = colors1[0];
                     Panel.color = colors1[4];
+
+                    //changes the text color of the how to play
                     title.color = colors1[0];
                     text1.color = colors1[0];
                     text2.color = colors1[0];
                     text3.color = colors1[0];
                     text4.color = colors1[0];
+
+                    //changes the text color of the stats
+                    TimesPlayedNum.color = colors1[0];
+                    GamesWonNum   .color = colors1[0];
+                    GamesLostNum  .color = colors1[0];
+                    winStreakNum  .color = colors1[0];
+                    bestChainNum  .color = colors1[0];
+                    highScoreNum  .color = colors1[0];
+                    TimesPlayed   .color = colors1[4];
+                    GamesWon      .color = colors1[4];
+                    GamesLost     .color = colors1[4];
+                    winStreak     .color = colors1[4];
+                    bestChain     .color = colors1[4];
+                    highScore     .color = colors1[4];
+
                     buttons[i].GetComponent<Image>().color = colors1[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -96,11 +127,26 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors2[4];
                     menuBar.color = colors2[1];
                     Panel.color = colors2[4];
+
+                    //changes the text color of the how to play
                     title.color = colors2[0];
                     text1.color = colors2[0];
                     text2.color = colors2[0];
                     text3.color = colors2[0];
                     text4.color = colors2[0];
+
+                    TimesPlayedNum.color = colors2[0];
+                    GamesWonNum.color = colors2[0];
+                    GamesLostNum.color = colors2[0];
+                    winStreakNum.color = colors2[0];
+                    bestChainNum.color = colors2[0];
+                    highScoreNum.color = colors2[0];
+                    TimesPlayed.color = colors2[4];
+                    GamesWon.color = colors2[4];
+                    GamesLost.color = colors2[4];
+                    winStreak.color = colors2[4];
+                    bestChain.color = colors2[4];
+                    highScore.color = colors2[4];
                     buttons[i].GetComponent<Image>().color = colors2[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -114,11 +160,27 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors3[4];
                     menuBar.color = colors3[0];
                     Panel.color = colors3[4];
+
+                    //changes the text color of the how to play
                     title.color = colors3[0];
                     text1.color = colors3[0];
                     text2.color = colors3[0];
                     text3.color = colors3[0];
                     text4.color = colors3[0];
+
+                    TimesPlayedNum.color = colors3[0];
+                    GamesWonNum.color = colors3[0];
+                    GamesLostNum.color = colors3[0];
+                    winStreakNum.color = colors3[0];
+                    bestChainNum.color = colors3[0];
+                    highScoreNum.color = colors3[0];
+                    TimesPlayed.color = colors3[4];
+                    GamesWon.color = colors3[4];
+                    GamesLost.color = colors3[4];
+                    winStreak.color = colors3[4];
+                    bestChain.color = colors3[4];
+                    highScore.color = colors3[4];
+
                     buttons[i].GetComponent<Image>().color = colors3[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -132,11 +194,27 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors4[4];
                     menuBar.color = colors4[0];
                     Panel.color = colors4[4];
+
+                    //changes the text color of the how to play
                     title.color = colors4[0];
                     text1.color = colors4[0];
                     text2.color = colors4[0];
                     text3.color = colors4[0];
                     text4.color = colors4[0];
+
+                    TimesPlayedNum.color = colors4[0];
+                    GamesWonNum.color = colors4[0];
+                    GamesLostNum.color = colors4[0];
+                    winStreakNum.color = colors4[0];
+                    bestChainNum.color = colors4[0];
+                    highScoreNum.color = colors4[0];
+                    TimesPlayed.color = colors4[4];
+                    GamesWon.color = colors4[4];
+                    GamesLost.color = colors4[4];
+                    winStreak.color = colors4[4];
+                    bestChain.color = colors4[4];
+                    highScore.color = colors4[4];
+
                     buttons[i].GetComponent<Image>().color = colors4[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
