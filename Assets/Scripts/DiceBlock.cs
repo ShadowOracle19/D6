@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class DiceBlock : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DiceBlock : MonoBehaviour
     public List<Sprite> diceNumbers = new List<Sprite>();//List of sprite faces which the generated number will be pulled from
     public SpriteRenderer diceFace;
     public int generatedNumber;//generate a number from 1-6
+    public TextMeshPro number;
+    public bool DotsActive = true;
 
     [Header("Dice Color")]
     public List<Color> colors1 = new List<Color>();//List of colors that will be pulled from when a number for the color is generated
@@ -42,7 +45,18 @@ public class DiceBlock : MonoBehaviour
 
     private void Update()
     {
-        diceFace.sprite = diceNumbers[generatedNumber - 1];
+        if(DotsActive)
+        {
+            diceFace.gameObject.SetActive(true);
+            number.gameObject.SetActive(false);
+            diceFace.sprite = diceNumbers[generatedNumber - 1];
+        }
+        else if(!DotsActive)
+        {
+            diceFace.gameObject.SetActive(false);
+            number.gameObject.SetActive(true);
+            number.text = generatedNumber.ToString();
+        }
 
         switch (colorToChange)
         {
@@ -73,12 +87,19 @@ public class DiceBlock : MonoBehaviour
             if(gameManager.selectedDice == this)
             {
                 gameManager.selectedDice = null;
+                if(gameManager.chain > gameManager.bestChain)
+                {
+                    gameManager.bestChain = gameManager.chain;
+                }
                 gameManager.chain = 0;
                 gameManager.pitch = 1;
                 gameManager.diceSwapLeft -= 1;
 
                 if(gameManager.diceSwapLeft <= -1)
                 {
+                    gameManager.GamesLost += 1;
+                    gameManager.winStreak = 0;
+                    gameManager.winStreak -= 1;
                     gameManager.GameOver();
                     return;
                 }

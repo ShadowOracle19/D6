@@ -11,18 +11,33 @@ public class UI_Buttons : MonoBehaviour
 
     //color change
     int number = 4;//handles what number we are on to change the color for now we are only going from 1-4
+
     public List<Button> buttons = new List<Button>();
+
     public List<Color> colors1 = new List<Color>();
     public List<Color> colors2 = new List<Color>();
     public List<Color> colors3 = new List<Color>();
     public List<Color> colors4 = new List<Color>();
+
     public TextMeshProUGUI d6Text;//the d6 text on screen
     public TextMeshProUGUI Score;//the score text on screen
     public TextMeshProUGUI Chain;//the chain text on screen
+    public TextMeshProUGUI dotsOrNumber;
+
+    //how to play text
+    public TextMeshProUGUI title;//the d6 text on screen
+    public TextMeshProUGUI text1;//the score text on screen
+    public TextMeshProUGUI text2;//the chain text on screen
+    public TextMeshProUGUI text3;
+    public TextMeshProUGUI text4;
+
     public Image bar;
     public Image menuBar;
     public Image Panel;
-    public List<Image> circles = new List<Image>();
+    public List<Image> circles = new List<Image>();//amount of selections left used to change the color of them
+
+    //Dots and numbers
+    public bool isDots = true;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -63,6 +78,11 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors1[4];
                     menuBar.color = colors1[0];
                     Panel.color = colors1[4];
+                    title.color = colors1[0];
+                    text1.color = colors1[0];
+                    text2.color = colors1[0];
+                    text3.color = colors1[0];
+                    text4.color = colors1[0];
                     buttons[i].GetComponent<Image>().color = colors1[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -76,6 +96,11 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors2[4];
                     menuBar.color = colors2[1];
                     Panel.color = colors2[4];
+                    title.color = colors2[0];
+                    text1.color = colors2[0];
+                    text2.color = colors2[0];
+                    text3.color = colors2[0];
+                    text4.color = colors2[0];
                     buttons[i].GetComponent<Image>().color = colors2[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -89,6 +114,11 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors3[4];
                     menuBar.color = colors3[0];
                     Panel.color = colors3[4];
+                    title.color = colors3[0];
+                    text1.color = colors3[0];
+                    text2.color = colors3[0];
+                    text3.color = colors3[0];
+                    text4.color = colors3[0];
                     buttons[i].GetComponent<Image>().color = colors3[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -102,6 +132,11 @@ public class UI_Buttons : MonoBehaviour
                     bar.color = colors4[4];
                     menuBar.color = colors4[0];
                     Panel.color = colors4[4];
+                    title.color = colors4[0];
+                    text1.color = colors4[0];
+                    text2.color = colors4[0];
+                    text3.color = colors4[0];
+                    text4.color = colors4[0];
                     buttons[i].GetComponent<Image>().color = colors4[i];
                     for (int j = 0; j < circles.Count; j++)
                     {
@@ -112,5 +147,31 @@ public class UI_Buttons : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void DotsAndNumbers()
+    {
+        if(isDots)
+        {
+            isDots = false;
+            SendMessage("GM_DotsAndColors", isDots);
+            dotsOrNumber.text = "DISPLAY: \nNUMBER";
+        }
+        else if(!isDots)
+        {
+            isDots = true;
+            SendMessage("GM_DotsAndColors", isDots);
+            dotsOrNumber.text = "DISPLAY: \nDOTS";
+        }
+    }
+
+    public void HowToPlay()
+    {
+        anim.SetBool("HowToPlay", !anim.GetBool("HowToPlay"));
+    }
+
+    public void Stats()
+    {
+        anim.SetBool("Stats", !anim.GetBool("Stats"));
     }
 }

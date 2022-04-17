@@ -38,16 +38,23 @@ public class GameManager : MonoBehaviour
     int targetScore = 50;
 
     //Player Stats
-    float TimesPlayed;
-    float GamesWon;
-    float GamesLost;
-    float winStreak;
-    float bestStreak;
-    float bestChain;
-    float highScore;
+    public float TimesPlayed;
+    public float GamesWon;
+    public float GamesLost;
+    public float winStreak;
+    public float bestChain;
+    public float highScore;
+    public TextMeshProUGUI _TimesPlayed;
+    public TextMeshProUGUI _GamesWon;
+    public TextMeshProUGUI _GamesLost;
+    public TextMeshProUGUI _winStreak;
+    public TextMeshProUGUI _bestChain;
+    public TextMeshProUGUI _highScore;
 
     //Color change
     int colorNumber = 1;
+
+    bool isDots = true;
 
     // Start is called before the first frame update
     void Start()
@@ -62,10 +69,11 @@ public class GameManager : MonoBehaviour
         t_chain.text = chain.ToString() + " Chain";
         total.value = score;
 
-        
+        AddPlayerStats();
     }
     public void PlayGame()
     {
+        TimesPlayed += 1;
         for (int i = 0; i < swapLeftImages.Count; i++)
         {
             swapLeftImages[i].sprite = filledCircle;
@@ -91,6 +99,7 @@ public class GameManager : MonoBehaviour
                 positionToMoveTo.y = 3.5f;
             }
             var dice = Instantiate(dicePrefab, generatingPosition, Quaternion.identity);//create a dice block at a location at (x, 10f)
+            dice.GetComponent<DiceBlock>().DotsActive = isDots;
             dice.GetComponent<DiceBlock>().colorToChange = colorNumber;
             generatingPosition.x += num;
             dice.GetComponent<DiceBlock>().MoveDice(positionToMoveTo);//activate the move function to move the dice block down once it is created
@@ -125,7 +134,9 @@ public class GameManager : MonoBehaviour
             var newBlock = Instantiate(dicePrefab, new Vector2(originalLocation.x, 10f), Quaternion.identity);//creates the new dice above the one about to move down
             newBlock.GetComponent<DiceBlock>().isOnTop = true;//sets the new block to is on top 
             newBlock.GetComponent<DiceBlock>().colorToChange = colorNumber;
+            newBlock.GetComponent<DiceBlock>().DotsActive = isDots;
             topBlock.isOnTop = false;//sets the dice on the second row to no longer on top as its gonna move
+            topBlock.DotsActive = isDots;
             topBlock.MoveDice(new Vector2(originalLocation.x, 0.7f));//moves dice block from second row to first
 
             diceBlocks.Remove(topBlock);//removes the top dice block so duplicates arent put in the list
@@ -162,7 +173,9 @@ public class GameManager : MonoBehaviour
             newBlock.GetComponent<DiceBlock>().isOnTop = true;//sets the new block to is on top 
 
             topBlock.isOnTop = false;//sets the dice on the second row to no longer on top as its gonna move
+            topBlock.DotsActive = isDots;
             newBlock.GetComponent<DiceBlock>().colorToChange = colorNumber;
+            newBlock.GetComponent<DiceBlock>().DotsActive = isDots;
             topBlock.MoveDice(new Vector2(originalLocation.x, 0.7f));//moves dice block from second row to first
 
             diceBlocks.Remove(topBlock);//removes the top dice block so duplicates arent put in the list
@@ -249,6 +262,10 @@ public class GameManager : MonoBehaviour
         }
         if(selectedDice != null) Destroy(selectedDice.gameObject);
 
+        if(score > highScore)
+        {
+            highScore = score;
+        }
         score = 0;
         chain = 0;
         selectedDice = null;
@@ -263,6 +280,8 @@ public class GameManager : MonoBehaviour
     {
         if (score == 50 && playingEndless != true)
         {
+            GamesWon += 1;
+            winStreak += 1;
             GameOver();
         }
         else if (score == targetScore && playingEndless)//in endless mode when the player gets to 50 they refresh their swaps left
@@ -283,10 +302,20 @@ public class GameManager : MonoBehaviour
 
     public void AddPlayerStats()//plays once game is fully over to add the stats from that round 
     {
-
+        _TimesPlayed.text = TimesPlayed.ToString();
+        _GamesWon.text = GamesWon.ToString();
+        _GamesLost.text = GamesLost.ToString();
+        _winStreak.text = winStreak.ToString();
+        _bestChain.text = bestChain.ToString();
+        _highScore.text = highScore.ToString();
     }
     public void GM_ChangeColor(int color)
     {
         colorNumber = color;
+    }
+
+    public void GM_DotsAndColors(bool _isDots)
+    {
+        isDots = _isDots;
     }
 }
